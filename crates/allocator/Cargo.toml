@@ -16,7 +16,10 @@ include = ["Cargo.toml", "src/**/*.rs", "README.md", "LICENSE"]
 
 [dependencies]
 cfg-if = "1.0"
-wee_alloc = { version = "0.4", default-features = false, optional = true }
+[dependencies.dlmalloc]
+version = "0.2.4"
+default-features = false
+features = ["global"]
 
 [dev-dependencies]
 quickcheck = "1"
@@ -25,5 +28,4 @@ quickcheck_macros = "1"
 [features]
 default = ["std"]
 std = []
-wee-alloc = ["wee_alloc"]
 ink-fuzz-tests = ["std"]

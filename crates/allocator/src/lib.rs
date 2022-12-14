@@ -24,26 +24,8 @@
 // We use `wee_alloc` as the global allocator since it is optimized for binary file size
 // so that contracts compiled with it as allocator do not grow too much in size.
 #[cfg(not(feature = "std"))]
-#[cfg(feature = "wee-alloc")]
 #[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-#[cfg(not(feature = "std"))]
-#[cfg(not(feature = "wee-alloc"))]
-#[global_allocator]
-static mut ALLOC: bump::BumpAllocator = bump::BumpAllocator {};
-
-#[cfg(not(feature = "wee-alloc"))]
-mod bump;
+static ALLOC: dlmalloc::GlobalDlmalloc = dlmalloc::GlobalDlmalloc;
 
 #[cfg(not(feature = "std"))]
 mod handlers;
-
-#[cfg(all(
-    test,
-    feature = "std",
-    feature = "ink-fuzz-tests",
-    not(feature = "wee-alloc")
-))]
-#[macro_use(quickcheck)]
-extern crate quickcheck_macros;
