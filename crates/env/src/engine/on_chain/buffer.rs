@@ -20,7 +20,25 @@ pub struct StaticBuffer {
 
 impl StaticBuffer {
     /// The capacity of the static buffer.
-    const CAPACITY: usize = 1 << 14; // 16 kB
+    cfg_if::cfg_if! {
+        if #[cfg(feature = "static-buffer-2M")] {
+            const CAPACITY: usize = 1 << 21;
+        } else if #[cfg(feature = "static-buffer-1M")] {
+            const CAPACITY: usize = 1 << 20;
+        } else if #[cfg(feature = "static-buffer-512K")] {
+            const CAPACITY: usize = 1 << 19;
+        } else if #[cfg(feature = "static-buffer-256K")] {
+            const CAPACITY: usize = 1 << 18;
+        } else if #[cfg(feature = "static-buffer-128K")] {
+            const CAPACITY: usize = 1 << 17;
+        } else if #[cfg(feature = "static-buffer-64K")] {
+            const CAPACITY: usize = 1 << 16;
+        } else if #[cfg(feature = "static-buffer-32K")] {
+            const CAPACITY: usize = 1 << 15;
+        } else {
+            const CAPACITY: usize = 1 << 14; // 16 kB
+        }
+    }
 
     /// Creates a new static buffer.
     pub const fn new() -> Self {

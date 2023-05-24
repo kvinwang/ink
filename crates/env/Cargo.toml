@@ -82,3 +82,11 @@ ink-debug = []
 
 # Disable the ink! provided global memory allocator.
 no-allocator = ["ink_allocator/no-allocator"]
+
+static-buffer-32K = []
+static-buffer-64K = []
+static-buffer-128K = []
+static-buffer-256K = []
+static-buffer-512K = []
+static-buffer-1M = []
+static-buffer-2M = []
