@@ -59,3 +59,11 @@ show-codegen-docs = []
 
 # Disable the ink! provided global memory allocator.
 no-allocator = ["ink_env/no-allocator"]
+
+static-buffer-32K = ["ink_env/static-buffer-32K"]
+static-buffer-64K = ["ink_env/static-buffer-64K"]
+static-buffer-128K = ["ink_env/static-buffer-128K"]
+static-buffer-256K = ["ink_env/static-buffer-256K"]
+static-buffer-512K = ["ink_env/static-buffer-512K"]
+static-buffer-1M = ["ink_env/static-buffer-1M"]
+static-buffer-2M = ["ink_env/static-buffer-2M"]
