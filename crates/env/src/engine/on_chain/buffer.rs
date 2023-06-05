@@ -25,6 +25,8 @@ impl StaticBuffer {
             const CAPACITY: usize = 1 << 21;
         } else if #[cfg(feature = "static-buffer-1M")] {
             const CAPACITY: usize = 1 << 20;
+        } else if #[cfg(feature = "static-buffer-1M256K")] {
+            const CAPACITY: usize = (1 << 20) + (1 << 18);
         } else if #[cfg(feature = "static-buffer-512K")] {
             const CAPACITY: usize = 1 << 19;
         } else if #[cfg(feature = "static-buffer-256K")] {
