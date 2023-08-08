@@ -51,7 +51,27 @@ use ink_storage_traits::Storable;
 /// The capacity of the static buffer.
 /// This is the same size as the ink! on-chain environment. We chose to use the same size
 /// to be as close to the on-chain behavior as possible.
-const BUFFER_SIZE: usize = 1 << 14; // 16 kB
+cfg_if::cfg_if! {
+    if #[cfg(feature = "static-buffer-2M")] {
+        const BUFFER_SIZE: usize = 1 << 21;
+    } else if #[cfg(feature = "static-buffer-1M")] {
+        const BUFFER_SIZE: usize = 1 << 20;
+    } else if #[cfg(feature = "static-buffer-1M256K")] {
+        const BUFFER_SIZE: usize = (1 << 20) + (1 << 18);
+    } else if #[cfg(feature = "static-buffer-512K")] {
+        const BUFFER_SIZE: usize = 1 << 19;
+    } else if #[cfg(feature = "static-buffer-256K")] {
+        const BUFFER_SIZE: usize = 1 << 18;
+    } else if #[cfg(feature = "static-buffer-128K")] {
+        const BUFFER_SIZE: usize = 1 << 17;
+    } else if #[cfg(feature = "static-buffer-64K")] {
+        const BUFFER_SIZE: usize = 1 << 16;
+    } else if #[cfg(feature = "static-buffer-32K")] {
+        const BUFFER_SIZE: usize = 1 << 15;
+    } else {
+        const BUFFER_SIZE: usize = 1 << 14; // 16 kB
+    }
+}
 
 impl CryptoHash for Blake2x128 {
     fn hash(input: &[u8], output: &mut <Self as HashOutput>::Type) {
