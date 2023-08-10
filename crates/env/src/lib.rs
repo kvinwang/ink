@@ -77,6 +77,19 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
 #[cfg(not(any(feature = "std", feature = "no-allocator")))]
 extern crate ink_allocator;
 
+extern crate alloc;
+
+use alloc::vec::Vec;
+
+#[cfg(not(feature = "std"))]
+pub use engine::init_instance;
+
+/// doc
+pub fn version() -> &'static str {
+    "Hello"
+}
+
+
 mod api;
 mod arithmetic;
 mod backend;

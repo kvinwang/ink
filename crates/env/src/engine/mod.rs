@@ -41,6 +41,7 @@ cfg_if! {
     if #[cfg(not(feature = "std"))] {
         mod on_chain;
         pub use self::on_chain::EnvInstance;
+        pub use self::on_chain::init_instance;
     } else {
         pub mod off_chain;
         pub use self::off_chain::EnvInstance;

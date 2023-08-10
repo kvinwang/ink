@@ -426,12 +426,14 @@ impl Dispatch<'_> {
             #[cfg(target_arch = "wasm32")]
             #[no_mangle]
             pub extern "C" fn call() {
+                ink::env::init_instance();
                 internal_call()
             }
 
             #[cfg(target_arch = "wasm32")]
             #[no_mangle]
             pub extern "C" fn deploy() {
+                ink::env::init_instance();
                 internal_deploy()
             }
 

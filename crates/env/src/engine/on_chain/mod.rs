@@ -40,14 +40,24 @@ pub struct EnvInstance {
     buffer: StaticBuffer,
 }
 
+static mut INSTANCE: EnvInstance = EnvInstance {
+    buffer: StaticBuffer::new(),
+};
+
+/// initializes the on-chain environment.
+pub fn init_instance() {
+    unsafe {
+        INSTANCE = EnvInstance {
+            buffer: StaticBuffer::zeroed(16*1024)
+        };
+    }
+}
+
 impl OnInstance for EnvInstance {
     fn on_instance<F, R>(f: F) -> R
     where
         F: FnOnce(&mut Self) -> R,
     {
-        static mut INSTANCE: EnvInstance = EnvInstance {
-            buffer: StaticBuffer::new(),
-        };
         f(unsafe { &mut INSTANCE })
     }
 }

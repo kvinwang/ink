@@ -12,20 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use alloc::vec::Vec;
+
 /// A static buffer with 16 kB of capacity.
 pub struct StaticBuffer {
-    /// The static buffer with a total capacity of 16 kB.
-    buffer: [u8; Self::CAPACITY],
+    buffer: Vec<u8>
 }
 
 impl StaticBuffer {
-    /// The capacity of the static buffer.
-    const CAPACITY: usize = 1 << 14; // 16 kB
-
     /// Creates a new static buffer.
     pub const fn new() -> Self {
         Self {
-            buffer: [0; Self::CAPACITY],
+            buffer: Vec::new()
+        }
+    }
+
+    pub fn zeroed(size: usize) -> Self {
+        Self {
+            buffer: alloc::vec![0; size],
         }
     }
 }
